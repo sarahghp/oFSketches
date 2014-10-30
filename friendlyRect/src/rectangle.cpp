@@ -21,7 +21,7 @@ void rectangle::draw() {
 		ofRotateZ(angle * RAD_TO_DEG);
 		
         ofRect(0, 0, 20, 20);
-		ofRect(0, 15, 3, 3);
+		ofRect(15, 15, 3, 3);
 	
 	
 	ofPopMatrix();
@@ -39,7 +39,7 @@ void rectangle::xenoToPoint(float catchX, float catchY){
 	float dx = pos.x - prevPos.x;
 	float dy = pos.y - prevPos.y;
 	
-	angle = atan2(dy, dx)  * ofRandom(-.02, .2);
+	angle = atan2(dy, dx) + ofRandom(-.2, .2);
 
 	prevPos.x = pos.x;
 	prevPos.y = pos.y;
