@@ -21,7 +21,7 @@ void rectangle::draw() {
 		ofRotateZ(angle * RAD_TO_DEG);
 		
         ofRect(0, 0, 20, 20);
-		ofRect(15, 15, 3, 3);
+		ofRect(15, 15, 5, 3);
 	
 	
 	ofPopMatrix();
