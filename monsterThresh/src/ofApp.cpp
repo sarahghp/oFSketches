@@ -1,6 +1,6 @@
 #include "ofApp.h"
 
-bool compare( ofVec2f a, ofVec2f b) {
+bool compare( const ofVec2f& a, const ofVec2f& b) {
     return a.y < b.y;
 }
 
