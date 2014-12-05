@@ -2,7 +2,14 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    
+    ofBackground(0,0,40);
 
+    for (int i = 0; i < 2500; i++){
+        particle myParticle;
+        myParticle.setInitialCondition(ofRandom(0,ofGetWidth()),ofRandom(0,ofGetHeight()),0,0);
+        particles.push_back(myParticle);
+    }
 }
 
 //--------------------------------------------------------------
@@ -12,6 +19,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    for (int i = 0; i < particles.size(); i++){
+        particles[i].draw();
+    }
 
 }
 

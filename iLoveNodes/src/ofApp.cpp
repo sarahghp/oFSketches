@@ -32,6 +32,7 @@ void ofApp::update(){
     node2.setPosition(50 + 50 * sin(ofGetElapsedTimef()),0,0);
     node2.tilt(1.7);
     node3.roll(4.0);
+    node4.pan(5.0);
     
     for (int i = 0; i < 5; i++){
     
