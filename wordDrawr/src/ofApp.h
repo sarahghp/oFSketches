@@ -2,6 +2,10 @@
 
 #include "ofMain.h"
 #include "particle.h"
+#include "vectorField.h"
+
+#include "ofxOpenCv.h"
+
 
 class ofApp : public ofBaseApp{
 
@@ -21,5 +25,28 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
         vector <particle> particles;
+        vectorField VF;
+    
+    
+        float prevMouseX;
+        float prevMouseY;
+        
+        bool bDrawDiagnostic;
+    
+        ofVideoGrabber 		vidGrabber;
+
+        
+        ofxCvColorImage		colorImg;
+        
+        ofxCvGrayscaleImage 	grayImage;
+        ofxCvGrayscaleImage 	grayBg;
+        ofxCvGrayscaleImage 	grayDiff;
+        ofxCvGrayscaleImage		grayDiffSmall;
+        
+        int 				threshold;
+        bool				bLearnBakground;
+        
+        bool				bForceInward;
+
 		
 };
