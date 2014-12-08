@@ -34,12 +34,13 @@ class ofApp : public ofBaseApp{
         bool bDrawDiagnostic;
     
         ofVideoGrabber 		vidGrabber;
+        ofxCvGrayscaleImage synthImg;
 
-        
+    
         ofxCvColorImage		colorImg;
         
-        ofxCvGrayscaleImage 	grayImage;
-        ofxCvGrayscaleImage 	grayBg;
+        ofxCvGrayscaleImage     grayImage;
+        ofxCvGrayscaleImage     grayBg;
         ofxCvGrayscaleImage 	grayDiff;
         ofxCvGrayscaleImage		grayDiffSmall;
         

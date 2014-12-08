@@ -19,11 +19,20 @@ void ofApp::setup(){
     vidGrabber.setVerbose(true);
     vidGrabber.initGrabber(320,240);
     
+    synthImg.allocate(320, 240);
+    unsigned char * pixel = synthImg.getPixels();
+    
+    for (int i = 0; i < synthImg.getWidth() * synthImg.getHeight(); i++) {
+        pixel[i] = 0;
+    }
+
+
     colorImg.allocate(320,240);
     grayImage.allocate(320,240);
     grayBg.allocate(320,240);
     grayDiff.allocate(320,240);
     grayDiffSmall.allocate(60,40);
+    
     
     bLearnBakground = true;
     threshold = 30;
@@ -40,12 +49,13 @@ void ofApp::update(){
     vidGrabber.update();
     bNewFrame = vidGrabber.isFrameNew();
     
+    
     if (bNewFrame){
         colorImg.setFromPixels(vidGrabber.getPixels(), 320,240);
         
         grayImage = colorImg;
         if (bLearnBakground == true){
-            grayBg = grayImage;		// the = sign copys the pixels from grayImage into grayBg (operator overloading)
+            grayBg = synthImg;		// the = sign copys the pixels from grayImage into grayBg (operator overloading)
             bLearnBakground = false;
         }
         
@@ -92,7 +102,7 @@ void ofApp::draw(){
         ofSetColor(0xffffff);
         colorImg.draw(20,20);
         grayImage.draw(360,20);
-        // grayBg.draw(20,280);
+        grayBg.draw(20,280);
         grayDiff.draw(360,280);
         // draw the blurry image
         grayDiffSmall.draw(360, 540, 320, 240);
@@ -106,7 +116,7 @@ void ofApp::draw(){
         
         ofEnableAlphaBlending();
         ofSetColor(255,255,255, 50);
-        // colorImg.draw(0,0,ofGetWidth(), ofGetHeight());
+        colorImg.draw(0,0,ofGetWidth(), ofGetHeight());
         ofSetColor(0,130,130, 200);
         // VF.draw();
         ofSetColor(0xffffff);
