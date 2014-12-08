@@ -53,7 +53,7 @@ void ofApp::update(){
         grayDiff.absDiff(grayBg, grayImage);
         grayDiff.threshold(threshold);
         grayDiffSmall.scaleIntoMe(grayDiff);
-        grayDiffSmall.blur(5); // really blur the image alot!
+        grayDiffSmall.blur(3); // really blur the image alot!
         VF.setFromPixels(grayDiffSmall.getPixels(), bForceInward, 0.05f);
     }
 
@@ -63,7 +63,14 @@ void ofApp::update(){
         // get the force from the vector field:
         ofVec2f frc;
         frc = VF.getForceFromPos(particles[i].pos.x, particles[i].pos.y);
-        particles[i].addForce(frc.x, frc.y);
+        particles[i].addForce(frc);
+        
+        ofVec2f center(ofGetWidth()/2, ofGetHeight()/2);
+        ofVec2f centroidFrc(center.x-particles[i].pos.x, center.y-particles[i].pos.y);
+        centroidFrc.normalize();
+        particles[i].addForce(centroidFrc * .001f);
+        
+        
         particles[i].addDampingForce();
         particles[i].update();
         particles[i].bounceOffWalls();
@@ -99,9 +106,9 @@ void ofApp::draw(){
         
         ofEnableAlphaBlending();
         ofSetColor(255,255,255, 50);
-        colorImg.draw(0,0,ofGetWidth(), ofGetHeight());
+        // colorImg.draw(0,0,ofGetWidth(), ofGetHeight());
         ofSetColor(0,130,130, 200);
-        VF.draw();
+        // VF.draw();
         ofSetColor(0xffffff);
         for (int i = 0; i < particles.size(); i++){
             particles[i].draw();
@@ -143,7 +150,10 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-
+    particles.erase(particles.begin());
+    particle pt;
+    pt.setInitialCondition(x, y, 0, 0);
+    particles.push_back(pt);
 }
 
 //--------------------------------------------------------------
