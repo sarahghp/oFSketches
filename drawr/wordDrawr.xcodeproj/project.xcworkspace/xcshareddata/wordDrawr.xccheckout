@@ -20,7 +20,7 @@
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>118C5279CF76F1A25D6117FD04DEF152863C0C4C</key>
-		<string>../../../../../algo2012</string>
+		<string>../../../../algo2012</string>
 		<key>530F0DF0CB2EC456B3ADFC6CCA52D3E71A5C2141</key>
 		<string>../../..</string>
 	</dict>
