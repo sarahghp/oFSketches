@@ -75,7 +75,7 @@ void ofApp::update(){
         frc = VF.getForceFromPos(particles[i].pos.x, particles[i].pos.y);
         particles[i].addForce(frc);
         
-//        ofVec2f center(ofGetWidth()/2, ofGetHeight()/2);
+
         ofVec2f centroidFrc(particles[i].origin.x-particles[i].pos.x, particles[i].origin.y-particles[i].pos.y);
         centroidFrc.normalize();
         particles[i].addForce(centroidFrc * .001f);
@@ -115,7 +115,7 @@ void ofApp::draw(){
     } else {
         
         ofEnableAlphaBlending();
-        ofSetColor(255,255,255, 20);
+        ofSetColor(255,255,255, 40);
         colorImg.draw(0,0,ofGetWidth(), ofGetHeight());
         ofSetColor(0,130,130, 200);
         // VF.draw();
