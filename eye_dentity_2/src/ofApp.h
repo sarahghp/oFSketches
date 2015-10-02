@@ -4,9 +4,12 @@
 #pragma once
 
 #include "ofMain.h"
+
 #include "ofxOsc.h"
 #include "ofxOpenCv.h"
+
 #include "Face.h"
+#include "particle.h"
 
 class ofApp : public ofBaseApp{
     
@@ -32,4 +35,7 @@ public:
     // For the video
     ofVideoGrabber 		vidGrabber;
     ofxCvColorImage     vid;
+    
+    // PARTICLES!!
+    vector <particle> particles;
 };

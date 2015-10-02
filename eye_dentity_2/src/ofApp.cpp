@@ -40,8 +40,15 @@ void ofApp::update(){
         cout << "---mh------" << endl
         << face.mouthHeight <<   endl;
         
-        // cout << "---------" << endl  
-        // << face.poseScale << endl;
+        if (face.mouthHeight > 7) {
+            // Adding particles
+            for (int i = 0; i < 100; i++){
+                particle littleBuddy;
+                littleBuddy.setInitialCondition(ofRandom(0,ofGetWidth()),ofRandom(0,ofGetHeight()),0,0);
+                particles.push_back(littleBuddy);
+            }
+
+        }
     }
     
     // Video
@@ -51,7 +58,13 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    // Make video show
     vid.draw(0,0,ofGetWidth(), ofGetHeight());
+    
+    // Make particles show
+    for (int i = 0; i < particles.size(); i++){
+        particles[i].draw();
+    }
 }
 
 //--------------------------------------------------------------
