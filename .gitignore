@@ -39,6 +39,13 @@ examples/**/[Rr]elease*/
 *.cpp.elf
 *.cpp.hex
 
+*.make
+*.plist
+**/Makefile
+*.md
+*.ai
+*.png
+
 # XCode 4
 xcuserdata
 *.xcworkspace
