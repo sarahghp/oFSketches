@@ -1,6 +1,62 @@
+# From https://github.com/openframeworks/openFrameworks/blob/master/.gitignore
+
+#########################
+# openFrameworks patterns
+#########################
+
+# build files
+openFrameworks.a
+openFrameworksDebug.a
+openFrameworksUniversal.a
+libs/openFrameworksCompiled/lib/*/*
+!libs/openFrameworksCompiled/lib/*/.gitkeep
+
+# apothecary
+scripts/apothecary/build
+
+# rule to avoid non-official addons going into git
+# see addons/.gitignore
+addons/*
+
+
+# also, see examples/.gitignore
+
+#########################
+# general
+#########################
+
+[Bb]uild/
+[Oo]bj/
+*.o
+examples/**/[Dd]ebug*/
+examples/**/[Rr]elease*/
+*.mode*
+*.app/
+*.pyc
+.svn/
+*.log
+*.cpp.eep
+*.cpp.elf
+*.cpp.hex
+
+# XCode 4
+xcuserdata
+*.xcworkspace
+
+
+#########################
+# operating system
+#########################
+
+# OSX
 .DS_Store
-*.make
-Makefile
-bin/*
-*.plist
-*.xconfig
+*.swp
+*~.nib
+# Thumbnails
+._*
+
+#########################
+# miscellaneous
+#########################
+
+.mailmap
