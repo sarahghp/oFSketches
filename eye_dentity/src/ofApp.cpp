@@ -25,7 +25,7 @@ void ofApp::setup(){
     box2d.setGravity(0, 10);
     box2d.createBounds();
     box2d.setFPS(frameRate);
-    box2d.registerGrabbing();
+//    box2d.registerGrabbing();
 
     
 }
@@ -59,12 +59,8 @@ void ofApp::update(){
         // << face.mouthHeight <<   endl;
         
         if (face.mouthHeight > 7) {
-            // Adding particles
-            for (int i = 0; i < 10; i++){
-                particle littleBuddy;
-                littleBuddy.setInitialCondition(ofRandom(0,ofGetWidth()),ofRandom(0,ofGetHeight()),0,0);
-                particles.push_back(littleBuddy);
-            }
+            // Adding eyeballs
+
         }
     }
     
@@ -80,11 +76,6 @@ void ofApp::update(){
 void ofApp::draw(){
     // Make video show
     vid.draw(0,0,ofGetWidth(), ofGetHeight());
-    
-    // Make particles show
-    for (int i = 0; i < particles.size(); i++){
-        particles[i].draw();
-    }
     
     // Add eyeball bodies
     for(int i=0; i<circles.size(); i++) {

@@ -10,7 +10,6 @@
 #include "ofxBox2d.h"
 
 #include "Face.h"
-#include "particle.h"
 
 class ofApp : public ofBaseApp{
     
@@ -36,9 +35,6 @@ public:
     // For the video
     ofVideoGrabber 		vidGrabber;
     ofxCvColorImage     vid;
-    
-    // PARTICLES!!
-    vector <particle> particles;
     
     // EYEBALL BODIES
     ofxBox2d  box2d;
