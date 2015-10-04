@@ -86,14 +86,12 @@ void ofApp::update(){
 void ofApp::draw(){
     // Make video show
     vid.draw(0,0,ofGetWidth(), ofGetHeight());
-    
+
     // Add eyeball bodies
     for(int i=0; i<circles.size(); i++) {
         circles[i].get()->draw();
     }
-    
-    // draw the ground
-    box2d.drawGround();
+
 
 }
 
@@ -102,7 +100,7 @@ void ofApp::keyPressed(int key){
 
     if (key == 'c'){
         // Adding eyeballs
-        float r = 40;
+        float r = 30;
         float xOffset = ofRandom(ofGetWidth()/2 - 10, ofGetWidth()/2 + 10);
         circles.push_back(shared_ptr<ofxBox2dCircle>(new Eyeball(eyeballGif)));
         circles.back().get()->setPhysics(3.0, 0.53, 0.1);
