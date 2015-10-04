@@ -45,6 +45,7 @@
 		4FE478251BC192B1008739D4 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FE4781E1BC192B1008739D4 /* ofApp.cpp */; };
 		4FE478261BC192B1008739D4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FE4781F1BC192B1008739D4 /* main.cpp */; };
 		4FE478281BC192B1008739D4 /* Face.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FE478221BC192B1008739D4 /* Face.cpp */; };
+		4FE478301BC1BE25008739D4 /* Eyeball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FE4782E1BC1BE25008739D4 /* Eyeball.cpp */; };
 		510CAFE035E576A4E1502D52 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E6DEF695B88BA5FAACEAA937 /* UdpSocket.cpp */; };
 		5146AEB9E58FB1B388820C2A /* b2WorldCallbacks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 561370923A365A4A9DC9FB8A /* b2WorldCallbacks.cpp */; };
 		5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF49D76C45D5DB505A234880 /* ofxOscMessage.cpp */; };
@@ -229,6 +230,8 @@
 		4FE478201BC192B1008739D4 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofApp.h; sourceTree = "<group>"; };
 		4FE478221BC192B1008739D4 /* Face.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Face.cpp; sourceTree = "<group>"; };
 		4FE478231BC192B1008739D4 /* Face.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Face.h; sourceTree = "<group>"; };
+		4FE4782E1BC1BE25008739D4 /* Eyeball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Eyeball.cpp; sourceTree = "<group>"; };
+		4FE4782F1BC1BE25008739D4 /* Eyeball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Eyeball.h; sourceTree = "<group>"; };
 		502A47DF926E78CB6A25B537 /* ofxBox2dContactListener.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBox2dContactListener.h; path = ../../../addons/ofxBox2d/src/ofxBox2dContactListener.h; sourceTree = SOURCE_ROOT; };
 		5034E204517C46FCBAB26BB3 /* FCheck.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = FCheck.h; path = ../../../addons/ofxFaceTracker/libs/FaceTracker/include/FaceTracker/FCheck.h; sourceTree = SOURCE_ROOT; };
 		516717F84C0146512C47A3EC /* ofxCvHaarFinder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvHaarFinder.h; path = ../../../addons/ofxOpenCv/src/ofxCvHaarFinder.h; sourceTree = SOURCE_ROOT; };
@@ -1262,11 +1265,13 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				4FE4781E1BC192B1008739D4 /* ofApp.cpp */,
 				4FE4781F1BC192B1008739D4 /* main.cpp */,
 				4FE478201BC192B1008739D4 /* ofApp.h */,
-				4FE478221BC192B1008739D4 /* Face.cpp */,
+				4FE4781E1BC192B1008739D4 /* ofApp.cpp */,
+				4FE4782F1BC1BE25008739D4 /* Eyeball.h */,
+				4FE4782E1BC1BE25008739D4 /* Eyeball.cpp */,
 				4FE478231BC192B1008739D4 /* Face.h */,
+				4FE478221BC192B1008739D4 /* Face.cpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1486,6 +1491,7 @@
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
+				4FE478301BC1BE25008739D4 /* Eyeball.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,

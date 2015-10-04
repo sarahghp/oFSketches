@@ -1,4 +1,9 @@
 #include "ofApp.h"
+#include "Eyeball.h"
+
+//--------------------------------------------------------------
+
+ofImage* eyeballGif = NULL;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -8,11 +13,11 @@ void ofApp::setup(){
     // Face buddies
     // FaceOSC sends to port 8338 by default
     receiver.setup(8338);
-    ofBackground(255);
     
     // Video
     ofSetVerticalSync(true);
     ofSetFrameRate(frameRate);
+    ofBackground(255);
     
     // Uncomment to debug device selection
     // ofSetLogLevel(OF_LOG_VERBOSE);
@@ -20,13 +25,13 @@ void ofApp::setup(){
     vidGrabber.setDeviceID(1);
     vidGrabber.initGrabber(320,240);
     
-    // Eyeball bodies
+    // Eyeballs
+    eyeballGif = new ofImage();
+    eyeballGif->loadImage("movie_eye_2.gif");
     box2d.init();
     box2d.setGravity(0, 10);
     box2d.createBounds();
     box2d.setFPS(frameRate);
-//    box2d.registerGrabbing();
-
     
 }
 
@@ -60,6 +65,11 @@ void ofApp::update(){
         
         if (face.mouthHeight > 7) {
             // Adding eyeballs
+            float r = 20;
+            float xOffset = ofRandom(ofGetWidth()/2 - 1, ofGetWidth()/2 + 1);
+            circles.push_back(shared_ptr<ofxBox2dCircle>(new Eyeball(eyeballGif)));
+            circles.back().get()->setPhysics(3.0, 0.53, 0.1);
+            circles.back().get()->setup(box2d.getWorld(), xOffset, ofGetHeight()/2, r);
 
         }
     }
@@ -79,8 +89,6 @@ void ofApp::draw(){
     
     // Add eyeball bodies
     for(int i=0; i<circles.size(); i++) {
-        ofFill();
-        ofSetHexColor(0xf6c738);
         circles[i].get()->draw();
     }
     
@@ -91,13 +99,14 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    if(key == 'c') {
-        float r = 20;
-        float xOffset = ofRandom(ofGetWidth()/2 - 1, ofGetWidth()/2 + 1);
-        circles.push_back(shared_ptr<ofxBox2dCircle>(new ofxBox2dCircle));
+
+    if (key == 'c'){
+        // Adding eyeballs
+        float r = 40;
+        float xOffset = ofRandom(ofGetWidth()/2 - 10, ofGetWidth()/2 + 10);
+        circles.push_back(shared_ptr<ofxBox2dCircle>(new Eyeball(eyeballGif)));
         circles.back().get()->setPhysics(3.0, 0.53, 0.1);
         circles.back().get()->setup(box2d.getWorld(), xOffset, ofGetHeight()/2, r);
-        
     }
 }
 
