@@ -2,6 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    
+    float frameRate = 60.0;
+    
     // Face buddies
     // FaceOSC sends to port 8338 by default
     receiver.setup(8338);
@@ -9,13 +12,21 @@ void ofApp::setup(){
     
     // Video
     ofSetVerticalSync(true);
-    ofSetFrameRate(60);
+    ofSetFrameRate(frameRate);
     
     // Uncomment to debug device selection
     // ofSetLogLevel(OF_LOG_VERBOSE);
     // vidGrabber.listDevices();
     vidGrabber.setDeviceID(1);
     vidGrabber.initGrabber(320,240);
+    
+    // Eyeball bodies
+    box2d.init();
+    box2d.setGravity(0, 10);
+    box2d.createBounds();
+    box2d.setFPS(frameRate);
+    box2d.registerGrabbing();
+
     
 }
 
@@ -54,13 +65,15 @@ void ofApp::update(){
                 littleBuddy.setInitialCondition(ofRandom(0,ofGetWidth()),ofRandom(0,ofGetHeight()),0,0);
                 particles.push_back(littleBuddy);
             }
-
         }
     }
     
     // Video
     vidGrabber.update();
     vid.setFromPixels(vidGrabber.getPixels(), 320,240);
+    
+    // Eyeball bodies
+    box2d.update();
 }
 
 //--------------------------------------------------------------
@@ -72,11 +85,29 @@ void ofApp::draw(){
     for (int i = 0; i < particles.size(); i++){
         particles[i].draw();
     }
+    
+    // Add eyeball bodies
+    for(int i=0; i<circles.size(); i++) {
+        ofFill();
+        ofSetHexColor(0xf6c738);
+        circles[i].get()->draw();
+    }
+    
+    // draw the ground
+    box2d.drawGround();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    
+    if(key == 'c') {
+        float r = 20;
+        float xOffset = ofRandom(ofGetWidth()/2 - 1, ofGetWidth()/2 + 1);
+        circles.push_back(shared_ptr<ofxBox2dCircle>(new ofxBox2dCircle));
+        circles.back().get()->setPhysics(3.0, 0.53, 0.1);
+        circles.back().get()->setup(box2d.getWorld(), xOffset, ofGetHeight()/2, r);
+        
+    }
 }
 
 //--------------------------------------------------------------
