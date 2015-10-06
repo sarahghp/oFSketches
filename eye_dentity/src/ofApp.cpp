@@ -39,18 +39,24 @@ void ofApp::setup(){
 void ofApp::update(){
     // Face buddies
     // check for waiting osc messages
+    
+    
+    float mouthTop;
+    float mouthBottom;
+    float mouthLeft;
+    float mouthRight;
+    
     while(receiver.hasWaitingMessages()){
         // get the next message
         ofxOscMessage m;
         receiver.getNextMessage(&m);
         
-        // if (m.getAddress() == "/raw"){
-        //    cout << "-----raw----" << endl
-        //    << m.getArgAsFloat(60) << endl;
-        // }
-        
-        // cout << "-----msg----" << endl
-        // << m.getAddress() << endl;
+        if (m.getAddress() == "/raw"){
+            mouthLeft = m.getArgAsFloat(48);
+            mouthRight = m.getArgAsFloat(54);
+            mouthTop = m.getArgAsFloat(61);
+            mouthBottom = m.getArgAsFloat(64);
+        }
         
         // load face from any FaceOSC messages
         face.parseOSC(m);
@@ -59,17 +65,24 @@ void ofApp::update(){
     // found face?
     if(face.found > 0) {
         
-        // Uncmoment to debug mouth opening
+        // Uncomment to debug mouth opening
         // cout << "---mh------" << endl
         // << face.mouthHeight <<   endl;
+        
+        
+        float mouthLeftMapped = ofMap(mouthLeft, 40., 401., 0, ofGetWidth());
+        float mouthRightMapped = ofMap(mouthRight, 40., 401., 0, ofGetWidth());
+        float mouthTopMapped = ofMap(mouthTop, 60., 200., 0, ofGetHeight());
+        float mouthBottomMapped = ofMap(mouthBottom, 60., 200., 0, ofGetHeight());
         
         if (face.mouthHeight > 7) {
             // Adding eyeballs
             float r = 20;
-            float xOffset = ofRandom(ofGetWidth()/2 - 1, ofGetWidth()/2 + 1);
+            float x = ofRandom(mouthRight, mouthLeft);
+            float y = ofRandom(mouthBottom, mouthTop);
             circles.push_back(shared_ptr<ofxBox2dCircle>(new Eyeball(eyeballGif)));
             circles.back().get()->setPhysics(3.0, 0.53, 0.1);
-            circles.back().get()->setup(box2d.getWorld(), xOffset, ofGetHeight()/2, r);
+            circles.back().get()->setup(box2d.getWorld(), ofRandom(ofGetWidth()/2 - .5, ofGetWidth()/2 + .5), ofGetHeight()/2 - 45, r);
 
         }
     }
