@@ -82,7 +82,7 @@ void ofApp::update(){
             float y = ofRandom(mouthBottom, mouthTop);
             circles.push_back(shared_ptr<ofxBox2dCircle>(new Eyeball(eyeballGif)));
             circles.back().get()->setPhysics(3.0, 0.53, 0.1);
-            circles.back().get()->setup(box2d.getWorld(), ofRandom(ofGetWidth()/2 - .5, ofGetWidth()/2 + .5), ofGetHeight()/2 - 45, r);
+            circles.back().get()->setup(box2d.getWorld(), x, y, r);
 
         }
     }
