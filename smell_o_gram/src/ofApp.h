@@ -8,6 +8,9 @@
 // Uncomment this to use a camera instead of a video file
 //#define CAMERA_CONNECTED
 
+// Uncomment this to turn on debug features
+#define DEBUG
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -56,7 +59,6 @@ class ofApp : public ofBaseApp{
     ofNode node4;
     ofNode node5;
     
-    ofEasyCam cam;
     ofPolyline line;
     
     ofNode * nodePtrs[5];

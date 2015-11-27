@@ -3,8 +3,15 @@
 
 //========================================================================
 int main( ){
-	ofSetupOpenGL(640, 480, OF_WINDOW);			// <-------- setup the GL context
-
+    
+    #ifdef DEBUG
+	ofSetupOpenGL(1280, 480, OF_WINDOW);			// <-------- setup the GL context
+    
+    #else
+    ofSetupOpenGL(640, 480, OF_WINDOW);
+    
+    #endif
+    
 	// this kicks off the running of my app
 	// can be OF_WINDOW or OF_FULLSCREEN
 	// pass in width and height too:

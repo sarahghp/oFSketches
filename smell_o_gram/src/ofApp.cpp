@@ -85,11 +85,14 @@ void ofApp::update(){
         colorImage.setFromPixels(vidPlayer.getPixels(), width, height);
     #endif
         
-        // convert our camera image to grayscale
-        grayImage = colorImage;
+    #ifdef DEBUG
         // apply a threshold so we can see what is going on
         grayThres = grayImage;
         grayThres.threshold(threshold);
+    #endif
+        
+        // convert our camera image to grayscale
+        grayImage = colorImage;
         
         // Pass in the new image pixels to artk
         artk.update(grayImage.getPixels());
@@ -117,49 +120,53 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
     // Main image
     ofSetHexColor(0xffffff);
     grayImage.draw(0, 0);
-    ofSetHexColor(0x666666);
-    ofDrawBitmapString(ofToString(artk.getMarkerID(0)) + " marker(s) found", 10, 20);
     
-    // Threshold image
-    // ofSetHexColor(0xffffff);
-    // grayThres.draw(640, 0);
-    // ofSetHexColor(0x666666);
-    // ofDrawBitmapString("Threshold: " + ofToString(threshold), 650, 20);
-    // ofDrawBitmapString("Use the Up/Down keys to adjust the threshold", 650, 40);
+    #ifdef DEBUG
+        ofSetHexColor(0x666666);
+        ofDrawBitmapString(ofToString(artk.getMatrix(0)) + " marker(s) found", 10, 20);
+        // Threshold image
+        ofSetHexColor(0xffffff);
+        grayThres.draw(640, 0);
+        ofSetHexColor(0x666666);
+        ofDrawBitmapString("Threshold: " + ofToString(threshold), 650, 20);
+        ofDrawBitmapString("Use the Up/Down keys to adjust the threshold", 650, 40);
     
     // ARTK draw
     // An easy was to see what is going on
     // Draws the marker location and id number
-    artk.draw(640, 0);
+        artk.draw(640, 0);
     
     // ARTK 2D stuff
     // See if marker ID '0' was detected
     // and draw blue corners on that marker only
-    int myIndex = artk.getMarkerIndex(0);
-    if(myIndex >= 0) {
+        int myIndex = artk.getMarkerIndex(0);
+        if(myIndex >= 0) {
         // Get the corners
-        vector<ofPoint> corners;
-        artk.getDetectedMarkerBorderCorners(myIndex, corners);
-        // Can also get the center like this:
-        // ofPoint center = artk.getDetectedMarkerCenter(myIndex);
-        ofSetHexColor(0x0000ff);
-        for(int i=0;i<corners.size();i++) {
-            ofCircle(corners[i].x, corners[i].y, 10);
-        }
+            vector<ofPoint> corners;
+            artk.getDetectedMarkerBorderCorners(myIndex, corners);
+            // Can also get the center like this:
+            // ofPoint center = artk.getDetectedMarkerCenter(myIndex);
+            ofSetHexColor(0x0000ff);
+            for(int i=0;i<corners.size();i++) {
+                ofCircle(corners[i].x, corners[i].y, 10);
+            }
+            
         // Homography
         // Here we feed in the corners of an image and get back a homography matrix
-        ofMatrix4x4 homo = artk.getHomography(myIndex, displayImageCorners);
-        // We apply the matrix and then can draw the image distorted on to the marker
-        ofPushMatrix();
-        glMultMatrixf(homo.getPtr());
-        ofSetHexColor(0xffffff);
-        displayImage.draw(0, 0);
-        ofPopMatrix();
+            ofMatrix4x4 homo = artk.getHomography(myIndex, displayImageCorners);
+            // We apply the matrix and then can draw the image distorted on to the marker
+            ofPushMatrix();
+            glMultMatrixf(homo.getPtr());
+            ofSetHexColor(0xffffff);
+            displayImage.draw(0, 0);
+            ofPopMatrix();
         
     }
+    #endif
     
     
     
@@ -179,10 +186,7 @@ void ofApp::draw(){
         line.draw();
     }
     
-    
-    
-    
-    
+    #ifdef DEBUG
     // Draw for each marker discovered
     for(int i=0; i<numDetected; i++) {
         
@@ -199,6 +203,7 @@ void ofApp::draw(){
             ofTranslate(0, 0, i*1);
         }
     }
+    #endif
 
 
 }
