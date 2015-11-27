@@ -49,15 +49,14 @@ void ofApp::setup(){
     ofBackground(127,127,127);
     
     // Node setup
-    node.setGlobalPosition(ofPoint(ofGetWidth()/2, ofGetHeight()/2, 200));
     node2.setParent(node);
-    node2.setPosition(0, 100, 0);
+    node2.setPosition(0, 10, 0);
     node3.setParent(node2);
-    node3.setPosition(0, 0, 100);
+    node3.setPosition(0, 0, 10);
     node4.setParent(node);
-    node4.setPosition(100, 0, 200);
+    node4.setPosition(-10, 0, 20);
     node5.setParent(node4);
-    node5.setPosition(100, 200 , 0);
+    node5.setPosition(-20, 20 , 0);
     
     nodePtrs[0] = &node;
     nodePtrs[1] = &node2;
@@ -98,9 +97,9 @@ void ofApp::update(){
     }
     
     // Node updates
-    node.setGlobalPosition(ofPoint(0, 0, 0));
+    // node.setGlobalPosition(ofPoint(0, 0, 0));
     node.pan(1.0);
-    node2.setPosition(50 + 50 * sin(ofGetElapsedTimef()),0,0);
+    node2.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
     node2.tilt(1.7);
     node3.roll(4.0);
     node4.pan(5.0);
@@ -171,35 +170,25 @@ void ofApp::draw(){
     // Find out how many markers have been detected
     int numDetected = artk.getNumDetectedMarkers();
     ofEnableAlphaBlending();
+    
+    // Draw node buddy
+    int otherIndex = artk.getMarkerIndex(37);
+    if(otherIndex >= 0){
+        ofSetColor(162, 0, 255);
+        artk.applyModelMatrix(otherIndex);
+        line.draw();
+    }
+    
+    
+    
+    
+    
     // Draw for each marker discovered
     for(int i=0; i<numDetected; i++) {
         
         // Set the matrix to the perspective of this marker
         // The origin is in the middle of the marker
         artk.applyModelMatrix(i);
-        
-        // Draw a line from the center out
-        // ofNoFill();
-        // ofSetLineWidth(5);
-        // ofSetHexColor(0xffffff);
-        // glBegin(GL_LINES);
-        // glVertex3f(0, 0, 0);
-        // glVertex3f(0, 0, 50);
-        // glEnd();
-        
-        // Draw node buddy
-        int otherIndex = artk.getMarkerIndex(37);
-        if(otherIndex >= 0){
-            // cam.begin();
-            // ofEnableDepthTest();
-            node.draw();
-            node2.draw();
-            node3.draw();
-            node4.draw();
-            node5.draw();
-            line.draw();
-            //cam.end();
-        }
         
         // Draw a stack of rectangles by offseting on the z axis
         ofNoFill();
