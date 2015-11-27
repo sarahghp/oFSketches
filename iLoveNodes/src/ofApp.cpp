@@ -27,7 +27,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    node.setGlobalPosition( ofPoint(0, 0, 0));
+    node.setGlobalPosition(ofPoint(0, 0, 0));
     node.pan(1.0);
     node2.setPosition(50 + 50 * sin(ofGetElapsedTimef()),0,0);
     node2.tilt(1.7);
