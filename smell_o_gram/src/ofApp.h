@@ -6,7 +6,7 @@
 #include "ofMain.h"
 
 // Uncomment this to use a camera instead of a video file
-//#define CAMERA_CONNECTED
+#define CAMERA_CONNECTED
 
 // Uncomment this to turn on debug features
 #define DEBUG

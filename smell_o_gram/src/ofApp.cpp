@@ -127,7 +127,7 @@ void ofApp::draw(){
     
     #ifdef DEBUG
         ofSetHexColor(0x666666);
-        ofDrawBitmapString(ofToString(artk.getMatrix(0)) + " marker(s) found", 10, 20);
+        ofDrawBitmapString(ofToString(artk.getNumDetectedMarkers()) + " marker(s) found", 10, 20);
         // Threshold image
         ofSetHexColor(0xffffff);
         grayThres.draw(640, 0);
@@ -140,9 +140,20 @@ void ofApp::draw(){
     // Draws the marker location and id number
         artk.draw(640, 0);
     
-    // ARTK 2D stuff
-    // See if marker ID '0' was detected
-    // and draw blue corners on that marker only
+        #ifdef CAMERA_CONNECTED
+    
+        int idx65 = artk.getMarkerIndex(65);
+        if (idx65 >= 0){
+            vector<ofPoint> corners;
+            artk.getDetectedMarkerBorderCorners(idx65, corners);
+            cout << ofToString(corners[2].y) << ofToString(corners[3].y) << endl;
+        }
+    
+        #else
+    
+        // ARTK 2D stuff
+        // See if marker ID '0' was detected
+        // and draw blue corners on that marker only
         int myIndex = artk.getMarkerIndex(0);
         if(myIndex >= 0) {
         // Get the corners
@@ -164,8 +175,10 @@ void ofApp::draw(){
             ofSetHexColor(0xffffff);
             displayImage.draw(0, 0);
             ofPopMatrix();
-        
-    }
+        }
+
+        #endif
+    
     #endif
     
     
@@ -178,6 +191,25 @@ void ofApp::draw(){
     int numDetected = artk.getNumDetectedMarkers();
     ofEnableAlphaBlending();
     
+    
+    #ifdef CAMERA_CONNECTED
+    // Draw node buddy
+    
+    if (idx65 >= 0){
+        vector<ofPoint> corners;
+        artk.getDetectedMarkerBorderCorners(idx65, corners);
+        
+        if (corners[2].y < 200 || corners[3].y < 3){
+            ofSetColor(162, 0, 255);
+            artk.applyModelMatrix(idx65);
+            line.draw();
+        }
+        
+    }
+    #endif
+    
+    #ifdef DEBUG
+    
     // Draw node buddy
     int otherIndex = artk.getMarkerIndex(37);
     if(otherIndex >= 0){
@@ -186,7 +218,6 @@ void ofApp::draw(){
         line.draw();
     }
     
-    #ifdef DEBUG
     // Draw for each marker discovered
     for(int i=0; i<numDetected; i++) {
         
