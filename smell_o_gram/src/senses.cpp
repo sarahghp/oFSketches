@@ -168,7 +168,7 @@ void senses::update(){
     for (int i = 0; i < 5; i++){
         
         line4.addVertex(nodePtrsFour[i]->getGlobalPosition());
-        if (line4.size() > 5000){
+        if (line4.size() > 3000){
             line4.getVertices().erase(line4.getVertices().begin());
         }
     }
@@ -313,12 +313,12 @@ void senses::draw(){
         ofPopMatrix();
         
         if (corners4[2].y < VERT_THRESH || corners4[3].y < VERT_THRESH){
-            ofSetColor(82, 45, 0);
+            ofSetColor(41, 12, 0);
             artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexFour);
             line4.draw();
             
-            ofSetColor(39, 179, 0);
+            ofSetColor(0, 182, 39);
             ofFill();
             ofEllipse(0, 0, disappear, disappear);
             
