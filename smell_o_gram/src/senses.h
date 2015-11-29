@@ -80,9 +80,7 @@ public:
     ofPolyline line4;
     
     ofNode * nodePtrsFour[5];
-    
-    vector<vector<ofPoint> > greenLineSeeds;
-    vector<vector<ofPoint> > greenLines;
+    int disappear;
     
     // image vars for sense 3
     /* Image to distort on to the marker */

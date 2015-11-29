@@ -104,24 +104,7 @@ void senses::setup(){
     nodePtrsFour[3] = &node19;
     nodePtrsFour[4] = &node20;
     
-    for(int j = 0; j < 40; j++){
-        ofPoint startPoint;
-        ofPoint endPoint;
-        vector<ofPoint> pointPair;
-        
-        float seed = ofRandom(600);
-        startPoint.x = -seed;
-        startPoint.y = -seed;
-        endPoint.x = seed + 10;
-        endPoint.y = seed + 10;
-        
-        pointPair.push_back(startPoint);
-        pointPair.push_back(endPoint);
-        
-        greenLineSeeds.push_back(pointPair);
-        greenLines.push_back(pointPair);
-    }
-
+    disappear = 10;
     
     
 }
@@ -192,21 +175,6 @@ void senses::update(){
         line4.addVertex(nodePtrsFour[i]->getGlobalPosition());
         if (line4.size() > 5000){
             line4.getVertices().erase(line4.getVertices().begin());
-        }
-    }
-    
-    for (int j = 0; j < greenLines.size(); j++){
-        
-        if (greenLines[j][0].x < 1200){
-            greenLines[j][0].x += 10;
-            greenLines[j][0].y += 10;
-            greenLines[j][1].x += 10;
-            greenLines[j][1].y += 10;
-        } else {
-            greenLines[j][0].x = greenLineSeeds[j][0].x;
-            greenLines[j][0].y = greenLineSeeds[j][0].y;
-            greenLines[j][1].x = greenLineSeeds[j][1].x;
-            greenLines[j][1].y = greenLineSeeds[j][1].y;
         }
     }
 
@@ -329,16 +297,16 @@ void senses::draw(){
         ofPopMatrix();
         
         if (corners4[2].y < VERT_THRESH || corners4[3].y < VERT_THRESH){
-            ofSetColor(46, 27, 0);
+            ofSetColor(82, 45, 0);
             artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexFour);
             line4.draw();
             
             ofSetColor(39, 179, 0);
+            ofFill();
+            ofEllipse(0, 0, disappear, disappear);
             
-            for (int j = 0; j < greenLines.size(); j++){
-                ofLine(greenLines[j][0].x, greenLines[j][0].y, greenLines[j][1].x, greenLines[j][1].y);
-            }
+            disappear > 0 && ofGetElapsedTimeMillis() % 300 == 0 && --disappear;
             
         }
         
