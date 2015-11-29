@@ -8,11 +8,12 @@
 
 #include "senses.h"
 
+#define VERT_THRESH 150
 
 //--------------------------------------------------------------
 
 senses::senses(vector<int> markers, vector<string> imageFiles, ofxARToolkitPlus * artk):
-markers(markers), imageFiles(imageFiles), artk(artk) {}
+    markers(markers), imageFiles(imageFiles), artk(artk) {}
 
 
 //--------------------------------------------------------------
@@ -210,7 +211,7 @@ void senses::draw(){
         displayImageOne.draw(0, 0);
         ofPopMatrix();
         
-        if (corners1[2].y < 200 || corners1[3].y < 200){
+        if (corners1[2].y < VERT_THRESH || corners1[3].y < VERT_THRESH){
             ofSetColor(162, 0, 255);
             artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexOne);
@@ -235,7 +236,7 @@ void senses::draw(){
         displayImageTwo.draw(0, 0);
         ofPopMatrix();
         
-        if (corners2[2].y < 200 || corners2[3].y < 200){
+        if (corners2[2].y < VERT_THRESH || corners2[3].y < VERT_THRESH){
             ofSetColor(0, 204, 255);
             artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexTwo);
@@ -260,14 +261,22 @@ void senses::draw(){
         displayImageThree.draw(0, 0);
         ofPopMatrix();
         
-        if (corners3[2].y < 200 || corners3[3].y < 200){
+        if (corners3[2].y < VERT_THRESH || corners3[3].y < VERT_THRESH){
             ofSetColor(255, 21, 0);
             artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexThree);
             line3.draw();
+            
+            ofSetColor(240, 255, 153);
+            for (int i = 0; i < 20; i++){
+                int randRad = ofRandom(20, 100);
+                ofEllipse(ofRandom(640), ofRandom(480), ofRandom(-100, 100), randRad, randRad);
+            }
         }
         
-        //ofLog() << "three called" << endl;
+
+        
+        ofLog() << "three called" << endl;
     }
     
     if (markerIndexFour >= 0){
@@ -285,7 +294,7 @@ void senses::draw(){
         displayImageFour.draw(0, 0);
         ofPopMatrix();
         
-        if (corners4[2].y < 200 || corners4[3].y < 200){
+        if (corners4[2].y < VERT_THRESH || corners4[3].y < VERT_THRESH){
             ofSetColor(255, 119, 0);
             artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexFour);
