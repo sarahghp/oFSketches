@@ -212,6 +212,7 @@ void senses::draw(){
         
         if (corners1[2].y < 200 || corners1[3].y < 200){
             ofSetColor(162, 0, 255);
+            artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexOne);
             line1.draw();
         }
@@ -236,6 +237,7 @@ void senses::draw(){
         
         if (corners2[2].y < 200 || corners2[3].y < 200){
             ofSetColor(0, 204, 255);
+            artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexTwo);
             line2.draw();
         }
@@ -260,6 +262,7 @@ void senses::draw(){
         
         if (corners3[2].y < 200 || corners3[3].y < 200){
             ofSetColor(0, 255, 47);
+            artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexThree);
             line3.draw();
         }
@@ -284,6 +287,7 @@ void senses::draw(){
         
         if (corners4[2].y < 200 || corners4[3].y < 200){
             ofSetColor(255, 119, 0);
+            artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexFour);
             line4.draw();
         }
