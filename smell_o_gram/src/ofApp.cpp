@@ -58,27 +58,12 @@ void ofApp::setup(){
     markers.push_back(452);
     markers.push_back(457);
     
-    ss = new senses(markers, pics, artk);
+    ss = new senses(markers, pics, &artk);
     ss->setup();
     
-    // Node setup
-    node2.setParent(node);
-    node2.setPosition(0, 10, 0);
-    node3.setParent(node2);
-    node3.setPosition(0, 0, 10);
-    node4.setParent(node);
-    node4.setPosition(-10, 0, 20);
-    node5.setParent(node4);
-    node5.setPosition(-20, 20 , 0);
-    
-    nodePtrs[0] = &node;
-    nodePtrs[1] = &node2;
-    nodePtrs[2] = &node3;
-    nodePtrs[3] = &node4;
-    nodePtrs[4] = &node5;
 
     
-    }
+}
 
 //--------------------------------------------------------------
 void ofApp::update(){
@@ -113,23 +98,8 @@ void ofApp::update(){
         
     }
     
-    // Node updates
-    // node.setGlobalPosition(ofPoint(0, 0, 0));
-    node.pan(1.0);
-    node2.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
-    node2.tilt(1.7);
-    node3.roll(4.0);
-    node4.pan(5.0);
+    ss->update();
     
-    for (int i = 0; i < 5; i++){
-        
-        line.addVertex(nodePtrs[i]->getGlobalPosition());
-        if (line.size() > 1000){
-            line.getVertices().erase(line.getVertices().begin());
-        }
-        
-    }
-
 }
 
 //--------------------------------------------------------------
@@ -160,15 +130,15 @@ void ofApp::draw(){
         if (idx65 >= 0){
             vector<ofPoint> corners;
             artk.getDetectedMarkerBorderCorners(idx65, corners);
-            cout << ofToString(corners[2].y) << ofToString(corners[3].y) << endl;
+            // cout << ofToString(corners[2].y) << ofToString(corners[3].y) << endl;
         }
     
-        #else
+        // #else
     
         // ARTK 2D stuff
         // See if marker ID '0' was detected
         // and draw blue corners on that marker only
-        int myIndex = artk.getMarkerIndex(0);
+        int myIndex = artk.getMarkerIndex(65);
         if(myIndex >= 0) {
         // Get the corners
             vector<ofPoint> corners;
@@ -213,7 +183,7 @@ void ofApp::draw(){
         vector<ofPoint> corners;
         artk.getDetectedMarkerBorderCorners(idx65, corners);
         
-        if (corners[2].y < 200 || corners[3].y < 3){
+        if (corners[2].y < 200 || corners[3].y < 200){
             ofSetColor(162, 0, 255);
             artk.applyModelMatrix(idx65);
             line.draw();

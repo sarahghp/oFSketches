@@ -48,17 +48,19 @@ class ofApp : public ofBaseApp{
     ofxCvGrayscaleImage grayImage;
     ofxCvGrayscaleImage	grayThres;
     
+    #ifdef DEBUG
     /* Image to distort on to the marker */
     ofImage displayImage;
     /* The four corners of the image */
     vector<ofPoint> displayImageCorners;
+    #endif
     
     /* Node things */
-    ofNode node;
-    ofNode node2;
-    ofNode node3;
-    ofNode node4;
-    ofNode node5;
+    ofNode nodea;
+    ofNode nodeb;
+    ofNode nodec;
+    ofNode noded;
+    ofNode nodee;
     
     ofPolyline line;
     
