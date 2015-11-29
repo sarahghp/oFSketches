@@ -20,7 +20,7 @@ markers(markers), imageFiles(imageFiles), artk(artk) {}
 void senses::setup(){
     
     // Load image points
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < 4; i++){
         ofImage displayImage;
         vector<ofPoint> displayImageCorners;
         // Load the image we are going to distort
@@ -85,6 +85,23 @@ void senses::setup(){
     nodePtrsThree[2] = &node13;
     nodePtrsThree[3] = &node14;
     nodePtrsThree[4] = &node15;
+    
+    // Node setup sense 4
+    node16.setPosition(0, 0, 0);
+    node17.setParent(node11);
+    node17.setPosition(0, 10, 0);
+    node18.setParent(node12);
+    node18.setPosition(0, 0, 10);
+    node19.setParent(node11);
+    node19.setPosition(-10, 0, 20);
+    node20.setParent(node14);
+    node20.setPosition(-20, 20 , 0);
+    
+    nodePtrsFour[0] = &node16;
+    nodePtrsFour[1] = &node17;
+    nodePtrsFour[2] = &node18;
+    nodePtrsFour[3] = &node19;
+    nodePtrsFour[4] = &node20;
 
     
     
@@ -113,8 +130,8 @@ void senses::update(){
     // Node updates 2
     node6.pan(1.0);
     node7.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
-    node2.tilt(1.7);
-    node7.roll(4.0);
+    node7.tilt(1.7);
+    node8.roll(4.0);
     node9.pan(5.0);
     
     for (int i = 0; i < 5; i++){
@@ -141,6 +158,23 @@ void senses::update(){
         }
         
     }
+    
+    // Node updates 4
+    node16.pan(1.0);
+    node17.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
+    node17.tilt(1.7);
+    node18.roll(4.0);
+    node19.pan(5.0);
+    
+    for (int i = 0; i < 5; i++){
+        
+        line4.addVertex(nodePtrsThree[i]->getGlobalPosition());
+        if (line4.size() > 1000){
+            line4.getVertices().erase(line4.getVertices().begin());
+        }
+        
+    }
+
 
 }
 
@@ -152,10 +186,13 @@ void senses::draw(){
     int markerIndexOne = artk->getMarkerIndex(markers[0]);
     int markerIndexTwo = artk->getMarkerIndex(markers[1]);
     int markerIndexThree = artk->getMarkerIndex(markers[2]);
+    int markerIndexFour = artk->getMarkerIndex(markers[3]);
+
     
     displayImageOne.loadImage(imageFiles[0]);
     displayImageTwo.loadImage(imageFiles[1]);
     displayImageThree.loadImage(imageFiles[2]);
+    displayImageFour.loadImage(imageFiles[3]);
     
     if (markerIndexOne >= 0){
         // Get the corners
@@ -164,10 +201,11 @@ void senses::draw(){
         
         // Homography
         // Here we feed in the corners of an image and get back a homography matrix
-        ofMatrix4x4 homo = artk->getHomography(markerIndexOne, imagePoints[0]);
+        ofMatrix4x4 homo1 = artk->getHomography(markerIndexOne, imagePoints[0]);
+        
         // We apply the matrix and then can draw the image distorted on to the marker
         ofPushMatrix();
-        glMultMatrixf(homo.getPtr());
+        glMultMatrixf(homo1.getPtr());
         ofSetHexColor(0xffffff);
         displayImageOne.draw(0, 0);
         ofPopMatrix();
@@ -178,7 +216,7 @@ void senses::draw(){
             line1.draw();
         }
         
-        //ofLog() << "one called" << endl;
+//        ofLog() << "one called" << endl;
     }
     
     if (markerIndexTwo >= 0){
@@ -188,10 +226,10 @@ void senses::draw(){
         
         // Homography
         // Here we feed in the corners of an image and get back a homography matrix
-        ofMatrix4x4 homo = artk->getHomography(markerIndexTwo, imagePoints[1]);
+        ofMatrix4x4 homo2 = artk->getHomography(markerIndexTwo, imagePoints[1]);
         // We apply the matrix and then can draw the image distorted on to the marker
         ofPushMatrix();
-        glMultMatrixf(homo.getPtr());
+        glMultMatrixf(homo2.getPtr());
         ofSetHexColor(0xffffff);
         displayImageTwo.draw(0, 0);
         ofPopMatrix();
@@ -202,7 +240,7 @@ void senses::draw(){
             line2.draw();
         }
         
-        //ofLog() << "two called" << endl;
+//        ofLog() << "two called" << endl;
     }
     
     if (markerIndexThree >= 0){
@@ -212,10 +250,10 @@ void senses::draw(){
         
         // Homography
         // Here we feed in the corners of an image and get back a homography matrix
-        ofMatrix4x4 homo = artk->getHomography(markerIndexThree, imagePoints[2]);
+        ofMatrix4x4 homo3 = artk->getHomography(markerIndexThree, imagePoints[2]);
         // We apply the matrix and then can draw the image distorted on to the marker
         ofPushMatrix();
-        glMultMatrixf(homo.getPtr());
+        glMultMatrixf(homo3.getPtr());
         ofSetHexColor(0xffffff);
         displayImageThree.draw(0, 0);
         ofPopMatrix();
@@ -226,7 +264,31 @@ void senses::draw(){
             line3.draw();
         }
         
-        //ofLog() << "three called" << endl;
+//        ofLog() << "three called" << endl;
+    }
+    
+    if (markerIndexFour >= 0){
+        // Get the corners
+        vector<ofPoint> corners4;
+        artk->getDetectedMarkerBorderCorners(markerIndexFour, corners4);
+        
+        // Homography
+        // Here we feed in the corners of an image and get back a homography matrix
+        ofMatrix4x4 homo4 = artk->getHomography(markerIndexFour, imagePoints[3]);
+        // We apply the matrix and then can draw the image distorted on to the marker
+        ofPushMatrix();
+        glMultMatrixf(homo4.getPtr());
+        ofSetHexColor(0xffffff);
+        displayImageFour.draw(0, 0);
+        ofPopMatrix();
+        
+        if (corners4[2].y < 200 || corners4[3].y < 200){
+            ofSetColor(255, 119, 0);
+            artk->applyModelMatrix(markerIndexFour);
+            line4.draw();
+        }
+        
+//        ofLog() << "four called" << endl;
     }
     
 

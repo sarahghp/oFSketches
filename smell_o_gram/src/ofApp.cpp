@@ -51,36 +51,19 @@ void ofApp::setup(){
     ofBackground(127,127,127);
     
     vector<string> pics;
-    pics.assign(3, "of.jpg");
+    pics.push_back("Library.png");
+    pics.push_back("Rose.png");
+    pics.push_back("Sunscreen.png");
+    pics.push_back("Tomato.png");
     
     vector<int> markers;
     markers.push_back(65);
     markers.push_back(452);
     markers.push_back(457);
+    markers.push_back(29);
     
     ss = new senses(markers, pics, &artk);
     ss->setup();
-    
-//    #ifdef DEBUG
-//    // Node setup
-//    nodea.setPosition(0, 0, 0);
-//    nodeb.setParent(nodea);
-//    nodeb.setPosition(0, 10, 0);
-//    nodec.setParent(nodeb);
-//    nodec.setPosition(0, 0, 10);
-//    noded.setParent(nodea);
-//    noded.setPosition(-10, 0, 20);
-//    nodee.setParent(noded);
-//    nodee.setPosition(-20, 20 , 0);
-//    
-//    nodePtrs[0] = &nodea;
-//    nodePtrs[1] = &nodeb;
-//    nodePtrs[2] = &nodec;
-//    nodePtrs[3] = &noded;
-//    nodePtrs[4] = &nodee;
-//    
-//    #endif
-
     
 }
 
@@ -107,22 +90,6 @@ void ofApp::update(){
         // apply a threshold so we can see what is going on
         grayThres = grayImage;
         grayThres.threshold(threshold);
-        
-//        // Node updates 1
-//        nodea.pan(1.0);
-//        nodeb.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
-//        nodeb.tilt(1.7);
-//        nodec.roll(4.0);
-//        noded.pan(5.0);
-//        
-//        for (int i = 0; i < 5; i++){
-//            
-//            line.addVertex(nodePtrs[i]->getGlobalPosition());
-//            if (line.size() > 1000){
-//                line.getVertices().erase(line.getVertices().begin());
-//            }
-//            
-//        }
     #endif
         
         // convert our camera image to grayscale
@@ -159,9 +126,6 @@ void ofApp::draw(){
         // Draws the marker location and id number
         artk.draw(640, 0);
     
-        #ifdef CAMERA_CONNECTED
-    
-    
         // ARTK 2D stuff
         // See if marker ID '0' was detected
         // and draw blue corners on that marker only
@@ -187,45 +151,37 @@ void ofApp::draw(){
             displayImage.draw(0, 0);
             ofPopMatrix();
         }
-
-        #endif
     
-    #endif
-    
-    
-    
-    // ARTK 3D stuff
-    // This is another way of drawing objects aligned with the marker
-    // First apply the projection matrix once
-    artk.applyProjectionMatrix();
-    // Find out how many markers have been detected
-    int numDetected = artk.getNumDetectedMarkers();
-    ofEnableAlphaBlending();
-    
-
-    
-    #ifdef DEBUG
-    // Draw for each marker discovered
-    for(int i=0; i<numDetected; i++) {
-        
-        // Set the matrix to the perspective of this marker
-        // The origin is in the middle of the marker
-        artk.applyModelMatrix(i);
-        
-        // Draw a stack of rectangles by offseting on the z axis
-        ofNoFill();
-        ofEnableSmoothing();
-        ofSetColor(255, 255, 0, 50);	
-        for(int i=0; i<10; i++) {		
-            ofRect(-25, -25, 50, 50);
-            ofTranslate(0, 0, i*1);
-        }
-    }
     #endif
     
     ss->draw();
 
+    #ifdef DEBUG
+        // ARTK 3D stuff
+        // This is another way of drawing objects aligned with the marker
+        // First apply the projection matrix once
+        artk.applyProjectionMatrix();
+        // Find out how many markers have been detected
+        int numDetected = artk.getNumDetectedMarkers();
+        ofEnableAlphaBlending();
 
+        // Draw for each marker discovered
+        for(int i=0; i<numDetected; i++) {
+            
+            // Set the matrix to the perspective of this marker
+            // The origin is in the middle of the marker
+            artk.applyModelMatrix(i);
+            
+            // Draw a stack of rectangles by offseting on the z axis
+            ofNoFill();
+            ofEnableSmoothing();
+            ofSetColor(255, 255, 0, 50);	
+            for(int i=0; i<10; i++) {		
+                ofRect(-25, -25, 50, 50);
+                ofTranslate(0, 0, i*1);
+            }
+        }
+    #endif
 }
 
 //--------------------------------------------------------------

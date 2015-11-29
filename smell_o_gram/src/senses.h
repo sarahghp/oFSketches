@@ -32,6 +32,8 @@ public:
     // image vars for sense 1
     /* Image to distort on to the marker */
     ofImage displayImageOne;
+    /* The four corners of the image */
+    vector<ofPoint> displayImageCornersOne;
     
     
     // nodes, pointers and drawing element for sense 2
@@ -67,6 +69,23 @@ public:
     ofImage displayImageThree;
     /* The four corners of the image */
     vector<ofPoint> displayImageCornersThree;
+    
+    // nodes, pointers and drawing element for sense 4
+    ofNode node16;
+    ofNode node17;
+    ofNode node18;
+    ofNode node19;
+    ofNode node20;
+    
+    ofPolyline line4;
+    
+    ofNode * nodePtrsFour[5];
+    
+    // image vars for sense 3
+    /* Image to distort on to the marker */
+    ofImage displayImageFour;
+    /* The four corners of the image */
+    vector<ofPoint> displayImageCornersFour;
     
     
     // Actual class functions
