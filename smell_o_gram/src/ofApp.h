@@ -2,6 +2,7 @@
 
 #include "ofxOpenCv.h"
 #include "ofxARToolkitPlus.h"
+#include "senses.h"
 
 #include "ofMain.h"
 
@@ -62,6 +63,9 @@ class ofApp : public ofBaseApp{
     ofPolyline line;
     
     ofNode * nodePtrs[5];
+    
+    /* Senses */
+    senses * ss;
 
 		
 };

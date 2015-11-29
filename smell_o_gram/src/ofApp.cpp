@@ -1,5 +1,7 @@
 #include "ofApp.h"
 
+
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     width = 640;
@@ -48,6 +50,17 @@ void ofApp::setup(){
     
     ofBackground(127,127,127);
     
+    vector<string> pics;
+    pics.assign(3, "of.jpg");
+    
+    vector<int> markers;
+    markers.push_back(65);
+    markers.push_back(452);
+    markers.push_back(457);
+    
+    ss = new senses(markers, pics, artk);
+    ss->setup();
+    
     // Node setup
     node2.setParent(node);
     node2.setPosition(0, 10, 0);
@@ -64,7 +77,8 @@ void ofApp::setup(){
     nodePtrs[3] = &node4;
     nodePtrs[4] = &node5;
 
-}
+    
+    }
 
 //--------------------------------------------------------------
 void ofApp::update(){
@@ -235,6 +249,8 @@ void ofApp::draw(){
         }
     }
     #endif
+    
+    ss->draw();
 
 
 }
