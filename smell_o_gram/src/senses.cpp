@@ -72,13 +72,13 @@ void senses::setup(){
     // Node setup sense 3
     node11.setPosition(0, 0, 0);
     node12.setParent(node11);
-    node12.setPosition(0, 10, 0);
+    node12.setPosition(0, -100, 100);
     node13.setParent(node12);
-    node13.setPosition(0, 0, 10);
+    node13.setPosition(400, -300, 50);
     node14.setParent(node11);
-    node14.setPosition(-10, 0, 20);
+    node14.setPosition(-200, 400, -20);
     node15.setParent(node14);
-    node15.setPosition(-20, 20 , 0);
+    node15.setPosition(-100, 100 , 0);
     
     nodePtrsThree[0] = &node11;
     nodePtrsThree[1] = &node12;
@@ -217,7 +217,7 @@ void senses::draw(){
             line1.draw();
         }
         
-//        ofLog() << "one called" << endl;
+        //ofLog() << "one called" << endl;
     }
     
     if (markerIndexTwo >= 0){
@@ -242,7 +242,7 @@ void senses::draw(){
             line2.draw();
         }
         
-//        ofLog() << "two called" << endl;
+        //ofLog() << "two called" << endl;
     }
     
     if (markerIndexThree >= 0){
@@ -261,13 +261,13 @@ void senses::draw(){
         ofPopMatrix();
         
         if (corners3[2].y < 200 || corners3[3].y < 200){
-            ofSetColor(0, 255, 47);
+            ofSetColor(255, 21, 0);
             artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexThree);
             line3.draw();
         }
         
-//        ofLog() << "three called" << endl;
+        //ofLog() << "three called" << endl;
     }
     
     if (markerIndexFour >= 0){
@@ -292,7 +292,7 @@ void senses::draw(){
             line4.draw();
         }
         
-//        ofLog() << "four called" << endl;
+        //ofLog() << "four called" << endl;
     }
     
 
