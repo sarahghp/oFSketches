@@ -45,7 +45,7 @@ void ofApp::setup(){
     // Set the threshold
     // ARTK+ does the thresholding for us
     // We also do it in OpenCV so we can see what it looks like for debugging
-    threshold = 85;
+    threshold = 51;
     artk.setThreshold(threshold);
     
     ofBackground(127,127,127);
@@ -186,7 +186,12 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    if(key == OF_KEY_UP) {
+        artk.setThreshold(++threshold);
+        
+    } else if(key == OF_KEY_DOWN) {
+        artk.setThreshold(--threshold);
+    }
 }
 
 //--------------------------------------------------------------
