@@ -61,6 +61,25 @@ void ofApp::setup(){
     ss = new senses(markers, pics, &artk);
     ss->setup();
     
+//    #ifdef DEBUG
+//    // Node setup
+//    nodea.setPosition(0, 0, 0);
+//    nodeb.setParent(nodea);
+//    nodeb.setPosition(0, 10, 0);
+//    nodec.setParent(nodeb);
+//    nodec.setPosition(0, 0, 10);
+//    noded.setParent(nodea);
+//    noded.setPosition(-10, 0, 20);
+//    nodee.setParent(noded);
+//    nodee.setPosition(-20, 20 , 0);
+//    
+//    nodePtrs[0] = &nodea;
+//    nodePtrs[1] = &nodeb;
+//    nodePtrs[2] = &nodec;
+//    nodePtrs[3] = &noded;
+//    nodePtrs[4] = &nodee;
+//    
+//    #endif
 
     
 }
@@ -88,6 +107,22 @@ void ofApp::update(){
         // apply a threshold so we can see what is going on
         grayThres = grayImage;
         grayThres.threshold(threshold);
+        
+//        // Node updates 1
+//        nodea.pan(1.0);
+//        nodeb.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
+//        nodeb.tilt(1.7);
+//        nodec.roll(4.0);
+//        noded.pan(5.0);
+//        
+//        for (int i = 0; i < 5; i++){
+//            
+//            line.addVertex(nodePtrs[i]->getGlobalPosition());
+//            if (line.size() > 1000){
+//                line.getVertices().erase(line.getVertices().begin());
+//            }
+//            
+//        }
     #endif
         
         // convert our camera image to grayscale
@@ -119,26 +154,18 @@ void ofApp::draw(){
         ofDrawBitmapString("Threshold: " + ofToString(threshold), 650, 20);
         ofDrawBitmapString("Use the Up/Down keys to adjust the threshold", 650, 40);
     
-    // ARTK draw
-    // An easy was to see what is going on
-    // Draws the marker location and id number
+        // ARTK draw
+        // An easy was to see what is going on
+        // Draws the marker location and id number
         artk.draw(640, 0);
     
         #ifdef CAMERA_CONNECTED
     
-        int idx65 = artk.getMarkerIndex(65);
-        if (idx65 >= 0){
-            vector<ofPoint> corners;
-            artk.getDetectedMarkerBorderCorners(idx65, corners);
-            // cout << ofToString(corners[2].y) << ofToString(corners[3].y) << endl;
-        }
-    
-        // #else
     
         // ARTK 2D stuff
         // See if marker ID '0' was detected
         // and draw blue corners on that marker only
-        int myIndex = artk.getMarkerIndex(65);
+        int myIndex = artk.getMarkerIndex(0);
         if(myIndex >= 0) {
         // Get the corners
             vector<ofPoint> corners;
@@ -150,8 +177,8 @@ void ofApp::draw(){
                 ofCircle(corners[i].x, corners[i].y, 10);
             }
             
-        // Homography
-        // Here we feed in the corners of an image and get back a homography matrix
+            // Homography
+            // Here we feed in the corners of an image and get back a homography matrix
             ofMatrix4x4 homo = artk.getHomography(myIndex, displayImageCorners);
             // We apply the matrix and then can draw the image distorted on to the marker
             ofPushMatrix();
@@ -175,33 +202,9 @@ void ofApp::draw(){
     int numDetected = artk.getNumDetectedMarkers();
     ofEnableAlphaBlending();
     
-    
-    #ifdef CAMERA_CONNECTED
-    // Draw node buddy
-    
-    if (idx65 >= 0){
-        vector<ofPoint> corners;
-        artk.getDetectedMarkerBorderCorners(idx65, corners);
-        
-        if (corners[2].y < 200 || corners[3].y < 200){
-            ofSetColor(162, 0, 255);
-            artk.applyModelMatrix(idx65);
-            line.draw();
-        }
-        
-    }
-    #endif
+
     
     #ifdef DEBUG
-    
-    // Draw node buddy
-    int otherIndex = artk.getMarkerIndex(37);
-    if(otherIndex >= 0){
-        ofSetColor(162, 0, 255);
-        artk.applyModelMatrix(otherIndex);
-        line.draw();
-    }
-    
     // Draw for each marker discovered
     for(int i=0; i<numDetected; i++) {
         

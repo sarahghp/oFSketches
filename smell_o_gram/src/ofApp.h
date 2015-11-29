@@ -53,7 +53,6 @@ class ofApp : public ofBaseApp{
     ofImage displayImage;
     /* The four corners of the image */
     vector<ofPoint> displayImageCorners;
-    #endif
     
     /* Node things */
     ofNode nodea;
@@ -65,6 +64,7 @@ class ofApp : public ofBaseApp{
     ofPolyline line;
     
     ofNode * nodePtrs[5];
+    #endif
     
     /* Senses */
     senses * ss;
