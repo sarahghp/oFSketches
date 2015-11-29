@@ -89,20 +89,38 @@ void senses::setup(){
     
     // Node setup sense 4
     node16.setPosition(0, 0, 0);
-    node17.setParent(node11);
-    node17.setPosition(0, 10, 0);
-    node18.setParent(node12);
-    node18.setPosition(0, 0, 10);
-    node19.setParent(node11);
-    node19.setPosition(-10, 0, 20);
-    node20.setParent(node14);
-    node20.setPosition(-20, 20 , 0);
+    //node17.setParent(node11);
+    node17.setPosition(0, 0, 0);
+    //node18.setParent(node12);
+    node18.setPosition(0, 0, 0);
+    //node19.setParent(node11);
+    node19.setPosition(0, 0, 0);
+    //node20.setParent(node14);
+    node20.setPosition(0, 0 , 0);
     
     nodePtrsFour[0] = &node16;
     nodePtrsFour[1] = &node17;
     nodePtrsFour[2] = &node18;
     nodePtrsFour[3] = &node19;
     nodePtrsFour[4] = &node20;
+    
+    for(int j = 0; j < 40; j++){
+        ofPoint startPoint;
+        ofPoint endPoint;
+        vector<ofPoint> pointPair;
+        
+        float seed = ofRandom(600);
+        startPoint.x = -seed;
+        startPoint.y = -seed;
+        endPoint.x = seed + 10;
+        endPoint.y = seed + 10;
+        
+        pointPair.push_back(startPoint);
+        pointPair.push_back(endPoint);
+        
+        greenLineSeeds.push_back(pointPair);
+        greenLines.push_back(pointPair);
+    }
 
     
     
@@ -161,21 +179,36 @@ void senses::update(){
     }
     
     // Node updates 4
-    node16.pan(1.0);
-    node17.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
-    node17.tilt(1.7);
-    node18.roll(4.0);
-    node19.pan(5.0);
+    //node16.pan(1.0);
+    node16.setPosition(300 * sin(ofGetElapsedTimef()/2),-300,100);
+    node17.setPosition(300 * sin(ofGetElapsedTimef()/2),-100,300);
+    node18.setPosition(300 * sin(ofGetElapsedTimef()/2),0,0);
+    node19.setPosition(300 * sin(ofGetElapsedTimef()/2),300,-300);
+    node20.setPosition(300 * sin(ofGetElapsedTimef()/2),100,-100);
+
     
     for (int i = 0; i < 5; i++){
         
-        line4.addVertex(nodePtrsThree[i]->getGlobalPosition());
-        if (line4.size() > 1000){
+        line4.addVertex(nodePtrsFour[i]->getGlobalPosition());
+        if (line4.size() > 5000){
             line4.getVertices().erase(line4.getVertices().begin());
         }
-        
     }
-
+    
+    for (int j = 0; j < greenLines.size(); j++){
+        
+        if (greenLines[j][0].x < 1200){
+            greenLines[j][0].x += 10;
+            greenLines[j][0].y += 10;
+            greenLines[j][1].x += 10;
+            greenLines[j][1].y += 10;
+        } else {
+            greenLines[j][0].x = greenLineSeeds[j][0].x;
+            greenLines[j][0].y = greenLineSeeds[j][0].y;
+            greenLines[j][1].x = greenLineSeeds[j][1].x;
+            greenLines[j][1].y = greenLineSeeds[j][1].y;
+        }
+    }
 
 }
 
@@ -296,10 +329,17 @@ void senses::draw(){
         ofPopMatrix();
         
         if (corners4[2].y < VERT_THRESH || corners4[3].y < VERT_THRESH){
-            ofSetColor(255, 119, 0);
+            ofSetColor(46, 27, 0);
             artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexFour);
             line4.draw();
+            
+            ofSetColor(39, 179, 0);
+            
+            for (int j = 0; j < greenLines.size(); j++){
+                ofLine(greenLines[j][0].x, greenLines[j][0].y, greenLines[j][1].x, greenLines[j][1].y);
+            }
+            
         }
         
         //ofLog() << "four called" << endl;

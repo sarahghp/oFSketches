@@ -81,6 +81,9 @@ public:
     
     ofNode * nodePtrsFour[5];
     
+    vector<vector<ofPoint> > greenLineSeeds;
+    vector<vector<ofPoint> > greenLines;
+    
     // image vars for sense 3
     /* Image to distort on to the marker */
     ofImage displayImageFour;
