@@ -69,6 +69,9 @@ void senses::setup(){
     nodePtrsTwo[2] = &node8;
     nodePtrsTwo[3] = &node9;
     nodePtrsTwo[4] = &node10;
+    
+    rectHeight = 0;
+    rectY = 0;
 
     // Node setup sense 3
     node11.setPosition(0, 0, 0);
@@ -144,6 +147,17 @@ void senses::update(){
         }
         
     }
+    
+    if(rectHeight < ofGetHeight() + 400){
+        rectHeight++;
+    } else if(rectY < ofGetHeight() + 400){
+        rectY++;
+    } else {
+        rectHeight = 0;
+        rectY = 0;
+    }
+    
+//    rectHeight = rectHeight < ofGetHeight() ? rectHeight + 1 : 0;
     
     // Node updates 3
     node11.pan(1.0);
@@ -237,11 +251,16 @@ void senses::draw(){
         displayImageTwo.draw(0, 0);
         ofPopMatrix();
         
+        
+        
         if (corners2[2].y < VERT_THRESH || corners2[3].y < VERT_THRESH){
-            ofSetColor(0, 204, 255);
-            artk->applyProjectionMatrix();
-            artk->applyModelMatrix(markerIndexTwo);
-            line2.draw();
+//            ofSetColor(0, 204, 255);
+//            artk->applyProjectionMatrix();
+//            artk->applyModelMatrix(markerIndexTwo);
+//            line2.draw();
+            ofSetColor(15, 231, 255, 127);
+            ofFill();
+            ofRect(0, rectY, ofGetWidth(), rectHeight);
         }
         
         //ofLog() << "two called" << endl;

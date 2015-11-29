@@ -47,6 +47,9 @@ public:
     
     ofNode * nodePtrsTwo[5];
     
+    int rectHeight;
+    int rectY;
+    
     // image vars for sense 2
     /* Image to distort on to the marker */
     ofImage displayImageTwo;
