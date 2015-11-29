@@ -268,15 +268,16 @@ void senses::draw(){
             line3.draw();
             
             ofSetColor(240, 255, 153);
+            ofFill();
             for (int i = 0; i < 20; i++){
-                int randRad = ofRandom(20, 100);
-                ofEllipse(ofRandom(640), ofRandom(480), ofRandom(-100, 100), randRad, randRad);
+                int randRad = ofRandom(2, 60);
+                ofEllipse(ofRandom(-320, 320), ofRandom(-240, 240), ofRandom(-100, 100), randRad, randRad);
             }
         }
         
 
         
-        ofLog() << "three called" << endl;
+        //ofLog() << "three called" << endl;
     }
     
     if (markerIndexFour >= 0){
