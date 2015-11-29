@@ -17,7 +17,7 @@ class senses {
 public:
     
     vector<vector<ofPoint> > imagePoints;
-    
+
     // nodes, pointers and drawing element for sense 1
     ofNode node1;
     ofNode node2;
@@ -37,18 +37,19 @@ public:
     
     
     // nodes, pointers and drawing element for sense 2
-    ofNode node6;
-    ofNode node7;
-    ofNode node8;
-    ofNode node9;
-    ofNode node10;
-    
-    ofPolyline line2;
-    
-    ofNode * nodePtrsTwo[5];
+//    ofNode node6;
+//    ofNode node7;
+//    ofNode node8;
+//    ofNode node9;
+//    ofNode node10;
+//    
+//    ofPolyline line2;
+//    
+//    ofNode * nodePtrsTwo[5];
     
     int rectHeight;
     int rectY;
+    vector<ofVec2f> ells;
     
     // image vars for sense 2
     /* Image to distort on to the marker */

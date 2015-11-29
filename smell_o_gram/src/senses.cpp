@@ -53,23 +53,15 @@ void senses::setup(){
     nodePtrsOne[3] = &node4;
     nodePtrsOne[4] = &node5;
     
-    // Node setup sense 2
-    node6.setPosition(0, 0, 0);
-    node7.setParent(node6);
-    node7.setPosition(0, 10, 0);
-    node8.setParent(node7);
-    node8.setPosition(0, 0, 10);
-    node9.setParent(node6);
-    node9.setPosition(-10, 0, 20);
-    node10.setParent(node9);
-    node10.setPosition(-20, 20 , 0);
+    // Setup sense 2
     
-    nodePtrsTwo[0] = &node6;
-    nodePtrsTwo[1] = &node7;
-    nodePtrsTwo[2] = &node8;
-    nodePtrsTwo[3] = &node9;
-    nodePtrsTwo[4] = &node10;
-    
+    for (int i = 0; i < 14; i++){
+        ofVec2f pos;
+        pos.x = ofRandom(ofGetWidth());
+        pos.y = ofRandom(ofGetHeight());
+        ells.push_back(pos);
+    }
+
     rectHeight = 0;
     rectY = 0;
 
@@ -132,32 +124,21 @@ void senses::update(){
         
     }
     
-    // Node updates 2
-    node6.pan(1.0);
-    node7.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
-    node7.tilt(1.7);
-    node8.roll(4.0);
-    node9.pan(5.0);
+    // Updates for sense 2
+
+    int testTwo = artk->getMarkerIndex(markers[1]);
     
-    for (int i = 0; i < 5; i++){
-        
-        line2.addVertex(nodePtrsTwo[i]->getGlobalPosition());
-        if (line2.size() > 1000){
-            line2.getVertices().erase(line2.getVertices().begin());
+    if (testTwo >= 0){
+        if(rectHeight < ofGetHeight() + 400){
+            rectHeight++;
+        } else if(rectY < ofGetHeight() + 200){
+            rectY++;
+        } else {
+            rectHeight = 0;
+            rectY = 0;
         }
-        
     }
     
-    if(rectHeight < ofGetHeight() + 400){
-        rectHeight++;
-    } else if(rectY < ofGetHeight() + 400){
-        rectY++;
-    } else {
-        rectHeight = 0;
-        rectY = 0;
-    }
-    
-//    rectHeight = rectHeight < ofGetHeight() ? rectHeight + 1 : 0;
     
     // Node updates 3
     node11.pan(1.0);
@@ -251,16 +232,32 @@ void senses::draw(){
         displayImageTwo.draw(0, 0);
         ofPopMatrix();
         
-        
+        int breath = ofMap(sin(ofGetElapsedTimef()), -1, 1, 12, 60);
         
         if (corners2[2].y < VERT_THRESH || corners2[3].y < VERT_THRESH){
-//            ofSetColor(0, 204, 255);
-//            artk->applyProjectionMatrix();
-//            artk->applyModelMatrix(markerIndexTwo);
-//            line2.draw();
             ofSetColor(15, 231, 255, 127);
             ofFill();
             ofRect(0, rectY, ofGetWidth(), rectHeight);
+            
+            
+            if (rectHeight > 0){
+                for (int i = 0; i < ells.size(); i++){
+                    if ((rectY == 0 && ells[i].y < rectHeight) || (rectY > 0 && ells[i].y > rectY)){
+                        if(i % 2 == 0){
+                            ofSetColor(255, 133, 177, 178);
+                            ofEllipse(ells[i].x, ells[i].y, breath, breath);
+                        } else if(i % 3 == 0){
+                            ofSetColor(255, 255, 255, 178);
+                            ofEllipse(ells[i].x, ells[i].y, breath + 4, breath + 4);
+                        } else {
+                            ofSetColor(240, 255, 153);
+                            ofEllipse(ells[i].x, ells[i].y, breath-2, breath-2);
+                        }
+                        
+                    }
+                }
+            }
+            
         }
         
         //ofLog() << "two called" << endl;
