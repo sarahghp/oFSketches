@@ -4,8 +4,15 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    
+#ifdef DEBUG
     width = 640;
     height = 480;
+#else
+    width = ofGetWidth();
+    height = ofGetHeight();
+#endif
+
     
     // Print the markers from the "AllBchThinMarkers.png" file in the data folder
     #ifdef CAMERA_CONNECTED

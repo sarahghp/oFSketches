@@ -9,7 +9,7 @@
 #include "senses.h"
 
 #define VERT_THRESH 150
-#define DEBUG
+//#define DEBUG
 
 //--------------------------------------------------------------
 

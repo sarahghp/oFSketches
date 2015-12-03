@@ -8,7 +8,7 @@ int main( ){
 	ofSetupOpenGL(1280, 480, OF_WINDOW);			// <-------- setup the GL context
     
     #else
-    ofSetupOpenGL(640, 480, OF_WINDOW);
+    ofSetupOpenGL(640, 480, OF_FULLSCREEN);
     
     #endif
     

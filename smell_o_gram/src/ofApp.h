@@ -10,7 +10,7 @@
 #define CAMERA_CONNECTED
 
 // Uncomment this to turn on debug features
-#define DEBUG
+//#define DEBUG
 
 class ofApp : public ofBaseApp{
 
@@ -48,12 +48,12 @@ class ofApp : public ofBaseApp{
     ofxCvGrayscaleImage grayImage;
     ofxCvGrayscaleImage	grayThres;
     
-    #ifdef DEBUG
+    
     /* Image to distort on to the marker */
     ofImage displayImage;
     /* The four corners of the image */
     vector<ofPoint> displayImageCorners;
-    #endif
+
     
     /* Senses */
     senses * ss;
