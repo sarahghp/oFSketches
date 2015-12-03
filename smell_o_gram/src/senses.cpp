@@ -9,6 +9,7 @@
 #include "senses.h"
 
 #define VERT_THRESH 150
+#define DEBUG
 
 //--------------------------------------------------------------
 
@@ -40,8 +41,8 @@ void senses::setup(){
     node1.setPosition(0, 0, 0);
     node2.setParent(node1);
     node2.setPosition(200, 0, 0);
-//    node3.setParent(node2);
-//    node3.setPosition(0, 0, 10);
+    node3.setParent(node2);
+    node3.setPosition(0, 100, 10);
 //    node4.setParent(node1);
 //    node4.setPosition(-10, 0, 20);
 //    node5.setParent(node4);
@@ -49,7 +50,7 @@ void senses::setup(){
     
     nodePtrsOne[0] = &node1;
     nodePtrsOne[1] = &node2;
-//    nodePtrsOne[2] = &node3;
+    nodePtrsOne[2] = &node3;
 //    nodePtrsOne[3] = &node4;
 //    nodePtrsOne[4] = &node5;
     
@@ -109,13 +110,13 @@ void senses::setup(){
 void senses::update(){
  
     // Node updates 1
-    node1.pan(1.0);
-//    node2.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
-//    node2.tilt(1.7);
-//    node3.roll(4.0);
-//    node4.pan(5.0);
+    //node1.pan(1.0);
+    //node2.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
+    //node2.tilt(1.7);
+    //node3.tilt(4.0);
+    //node4.pan(5.0);
     
-    for (int i = 0; i < 2; i++){
+    for (int i = 0; i < 3; i++){
         
         line1.addVertex(nodePtrsOne[i]->getGlobalPosition());
         if (line1.size() > 1000){
@@ -213,14 +214,19 @@ void senses::draw(){
             ofRect(0, 0, ofGetWidth(), ofGetHeight());
             
             ofSetColor(255, 0, 47);
-            for (int i = 0; i < 200; i++){
-                ofRect(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), 0, 2, 2);
+            for (int i = 0; i < 400; i++){
+                ofRect(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), 0, 3, 3 );
             }
             
             ofSetColor(255, 255, 255, 255);
-            artk->applyProjectionMatrix();
-            artk->applyModelMatrix(markerIndexOne);
-            line1.draw();
+            
+            #ifdef DEBUG
+            int baseCenter = ofGetWidth()/4;
+            # else
+            int baseCenter = ofGetWidth()/2;
+            # endif
+            
+            ofEllipse(baseCenter, 100, 200, 200);
         }
         
         //ofLog() << "one called" << endl;
