@@ -93,11 +93,11 @@ void ofApp::update(){
         colorImage.setFromPixels(vidPlayer.getPixels(), width, height);
     #endif
         
-    #ifdef DEBUG
+    
         // apply a threshold so we can see what is going on
         grayThres = grayImage;
         grayThres.threshold(threshold);
-    #endif
+    
         
         // convert our camera image to grayscale
         grayImage = colorImage;
@@ -116,14 +116,14 @@ void ofApp::draw(){
     
     // Main image
     ofSetHexColor(0xffffff);
-    grayImage.draw(0, 0);
+    grayThres.draw(0, 0);
     
     #ifdef DEBUG
         ofSetHexColor(0x666666);
         ofDrawBitmapString(ofToString(artk.getNumDetectedMarkers()) + " marker(s) found", 10, 20);
         // Threshold image
         ofSetHexColor(0xffffff);
-        grayThres.draw(640, 0);
+        grayImage.draw(640, 0);
         ofSetHexColor(0x666666);
         ofDrawBitmapString("Threshold: " + ofToString(threshold), 650, 20);
         ofDrawBitmapString("Use the Up/Down keys to adjust the threshold", 650, 40);
