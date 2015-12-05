@@ -72,6 +72,9 @@ void ofApp::setup(){
     ss = new senses(markers, pics, &artk);
     ss->setup();
     
+    // Initialize counter for portraits
+    portraitCounter = 0;
+    
 }
 
 //--------------------------------------------------------------
@@ -193,11 +196,26 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+
+    
     if(key == OF_KEY_UP) {
         artk.setThreshold(++threshold);
         
     } else if(key == OF_KEY_DOWN) {
         artk.setThreshold(--threshold);
+        
+    } else if (key == ' '){
+        
+        string filename;
+        
+        if (portraitCounter >= 10){
+            filename = "portrait" + ofToString(portraitCounter) + ".png";
+        } else {
+            filename = "portrait0" + ofToString(portraitCounter) + ".png";
+        }
+        
+        ofSaveScreen(filename);
+        ++portraitCounter;
     }
 }
 

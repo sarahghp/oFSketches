@@ -57,6 +57,9 @@ class ofApp : public ofBaseApp{
     
     /* Senses */
     senses * ss;
+    
+    /* Portrait */
+    int portraitCounter;
 
 		
 };
