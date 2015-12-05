@@ -40,21 +40,6 @@ void senses::setup(){
     // Setup sense 1
     
     gradCircle.loadImage("thinking.png");
-//    node1.setPosition(0, 0, 0);
-//    node2.setParent(node1);
-//    node2.setPosition(200, 0, 0);
-//    node3.setParent(node2);
-//    node3.setPosition(0, 100, 10);
-//    node4.setParent(node1);
-//    node4.setPosition(-10, 0, 20);
-//    node5.setParent(node4);
-//    node5.setPosition(-20, 20 , 0);
-    
-//    nodePtrsOne[0] = &node1;
-//    nodePtrsOne[1] = &node2;
-//    nodePtrsOne[2] = &node3;
-//    nodePtrsOne[3] = &node4;
-//    nodePtrsOne[4] = &node5;
     
     // Setup sense 2
     
@@ -87,13 +72,9 @@ void senses::setup(){
     
     // Node setup sense 4
     node16.setPosition(0, 0, 0);
-    //node17.setParent(node11);
     node17.setPosition(0, 0, 0);
-    //node18.setParent(node12);
     node18.setPosition(0, 0, 0);
-    //node19.setParent(node11);
     node19.setPosition(0, 0, 0);
-    //node20.setParent(node14);
     node20.setPosition(0, 0 , 0);
     
     nodePtrsFour[0] = &node16;
@@ -111,22 +92,6 @@ void senses::setup(){
 //--------------------------------------------------------------
 
 void senses::update(){
- 
-    // Node updates 1
-    //node1.pan(1.0);
-    //node2.setPosition(15 + 5 * sin(ofGetElapsedTimef()),0,0);
-    //node2.tilt(1.7);
-    //node3.tilt(4.0);
-    //node4.pan(5.0);
-    
-//    for (int i = 0; i < 3; i++){
-//        
-//        line1.addVertex(nodePtrsOne[i]->getGlobalPosition());
-//        if (line1.size() > 1000){
-//            line1.getVertices().erase(line1.getVertices().begin());
-//        }
-//        
-//    }
     
     // Updates for sense 2
 
@@ -161,7 +126,6 @@ void senses::update(){
     }
     
     // Node updates 4
-    //node16.pan(1.0);
     node16.setPosition(300 * sin(ofGetElapsedTimef()/2),-300,100);
     node17.setPosition(300 * sin(ofGetElapsedTimef()/2),-100,300);
     node18.setPosition(300 * sin(ofGetElapsedTimef()/2),0,0);
@@ -231,7 +195,6 @@ void senses::draw(){
             
             gradCircle.draw(baseCenter - 150, VERT_THRESH - 200);
             
-//            ofEllipse(baseCenter, 100, 200, 200);
         }
         
         //ofLog() << "one called" << endl;

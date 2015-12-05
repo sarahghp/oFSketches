@@ -17,18 +17,6 @@ class senses {
 public:
     
     vector<vector<ofPoint> > imagePoints;
-
-    ofImage gradCircle;
-    // nodes, pointers and drawing element for sense 1
-//    ofNode node1;
-//    ofNode node2;
-//    ofNode node3;
-//    ofNode node4;
-//    ofNode node5;
-
-    ofPolyline line1;
-
-    ofNode * nodePtrsOne[5];
     
     // image vars for sense 1
     /* Image to distort on to the marker */
@@ -36,21 +24,10 @@ public:
     /* The four corners of the image */
     vector<ofPoint> displayImageCornersOne;
     
-    
-    // nodes, pointers and drawing element for sense 2
-//    ofNode node6;
-//    ofNode node7;
-//    ofNode node8;
-//    ofNode node9;
-//    ofNode node10;
-//    
-//    ofPolyline line2;
-//    
-//    ofNode * nodePtrsTwo[5];
-    
     int rectHeight;
     int rectY;
     vector<ofVec2f> ells;
+    ofImage gradCircle;
     
     // image vars for sense 2
     /* Image to distort on to the marker */
