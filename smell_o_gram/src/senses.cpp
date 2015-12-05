@@ -8,7 +8,7 @@
 
 #include "senses.h"
 
-#define VERT_THRESH 150
+#define VERT_THRESH 320
 //#define DEBUG
 
 //--------------------------------------------------------------
@@ -37,26 +37,28 @@ void senses::setup(){
         
     }
     
-    // Node setup sense 1
-    node1.setPosition(0, 0, 0);
-    node2.setParent(node1);
-    node2.setPosition(200, 0, 0);
-    node3.setParent(node2);
-    node3.setPosition(0, 100, 10);
+    // Setup sense 1
+    
+    gradCircle.loadImage("thinking.png");
+//    node1.setPosition(0, 0, 0);
+//    node2.setParent(node1);
+//    node2.setPosition(200, 0, 0);
+//    node3.setParent(node2);
+//    node3.setPosition(0, 100, 10);
 //    node4.setParent(node1);
 //    node4.setPosition(-10, 0, 20);
 //    node5.setParent(node4);
 //    node5.setPosition(-20, 20 , 0);
     
-    nodePtrsOne[0] = &node1;
-    nodePtrsOne[1] = &node2;
-    nodePtrsOne[2] = &node3;
+//    nodePtrsOne[0] = &node1;
+//    nodePtrsOne[1] = &node2;
+//    nodePtrsOne[2] = &node3;
 //    nodePtrsOne[3] = &node4;
 //    nodePtrsOne[4] = &node5;
     
     // Setup sense 2
     
-    for (int i = 0; i < 14; i++){
+    for (int i = 0; i < 24; i++){
         ofVec2f pos;
         pos.x = ofRandom(ofGetWidth());
         pos.y = ofRandom(ofGetHeight());
@@ -71,11 +73,11 @@ void senses::setup(){
     node12.setParent(node11);
     node12.setPosition(0, -100, 100);
     node13.setParent(node12);
-    node13.setPosition(400, -300, 50);
+    node13.setPosition(ofGetWidth(), -ofGetHeight(), 50);
     node14.setParent(node11);
-    node14.setPosition(-200, 400, -20);
+    node14.setPosition(-ofGetWidth()/2, ofGetHeight(), -20);
     node15.setParent(node14);
-    node15.setPosition(-100, 100 , 0);
+    node15.setPosition(-ofGetWidth()/4, ofGetHeight()/4, 0);
     
     nodePtrsThree[0] = &node11;
     nodePtrsThree[1] = &node12;
@@ -100,7 +102,8 @@ void senses::setup(){
     nodePtrsFour[3] = &node19;
     nodePtrsFour[4] = &node20;
     
-    disappear = 10;
+    disappear = 5;
+    dirt.loadImage("dirt.png");
     
     
 }
@@ -116,14 +119,14 @@ void senses::update(){
     //node3.tilt(4.0);
     //node4.pan(5.0);
     
-    for (int i = 0; i < 3; i++){
-        
-        line1.addVertex(nodePtrsOne[i]->getGlobalPosition());
-        if (line1.size() > 1000){
-            line1.getVertices().erase(line1.getVertices().begin());
-        }
-        
-    }
+//    for (int i = 0; i < 3; i++){
+//        
+//        line1.addVertex(nodePtrsOne[i]->getGlobalPosition());
+//        if (line1.size() > 1000){
+//            line1.getVertices().erase(line1.getVertices().begin());
+//        }
+//        
+//    }
     
     // Updates for sense 2
 
@@ -226,7 +229,9 @@ void senses::draw(){
             int baseCenter = ofGetWidth()/2;
             # endif
             
-            ofEllipse(baseCenter, 100, 200, 200);
+            gradCircle.draw(baseCenter - 150, VERT_THRESH - 200);
+            
+//            ofEllipse(baseCenter, 100, 200, 200);
         }
         
         //ofLog() << "one called" << endl;
@@ -247,7 +252,7 @@ void senses::draw(){
         displayImageTwo.draw(0, 0);
         ofPopMatrix();
         
-        int breath = ofMap(sin(ofGetElapsedTimef()), -1, 1, 12, 60);
+        int breath = ofMap(sin(ofGetElapsedTimef()), -1, 1, 12, 40);
         
         if (corners2[2].y < VERT_THRESH || corners2[3].y < VERT_THRESH){
             ofSetColor(15, 231, 255, 170);
@@ -263,10 +268,10 @@ void senses::draw(){
                             ofEllipse(ells[i].x, ells[i].y, breath, breath);
                         } else if(i % 3 == 0){
                             ofSetColor(255, 255, 255, 178);
-                            ofEllipse(ells[i].x, ells[i].y, breath + 4, breath + 4);
+                            ofEllipse(ells[i].x, ells[i].y, breath + 20, breath + 20);
                         } else {
                             ofSetColor(240, 255, 153);
-                            ofEllipse(ells[i].x, ells[i].y, breath-2, breath-2);
+                            ofEllipse(ells[i].x, ells[i].y, breath - 10, breath - 10);
                         }
                         
                     }
@@ -294,17 +299,17 @@ void senses::draw(){
         ofPopMatrix();
         
         if (corners3[2].y < VERT_THRESH || corners3[3].y < VERT_THRESH){
-            ofSetColor(255, 21, 0);
-            artk->applyProjectionMatrix();
-            artk->applyModelMatrix(markerIndexThree);
-            line3.draw();
-            
             ofSetColor(240, 255, 153);
             ofFill();
             for (int i = 0; i < 20; i++){
                 int randRad = ofRandom(2, 60);
-                ofEllipse(ofRandom(-320, 320), ofRandom(-240, 240), ofRandom(-100, 100), randRad, randRad);
+                ofEllipse(ofRandom(ofGetWidth()), ofRandom(ofGetHeight()), ofRandom(-100, 100), randRad, randRad);
             }
+            
+            ofSetColor(255, 21, 0);
+            artk->applyProjectionMatrix();
+            artk->applyModelMatrix(markerIndexThree);
+            line3.draw();
         }
         
 
@@ -328,6 +333,14 @@ void senses::draw(){
         ofPopMatrix();
         
         if (corners4[2].y < VERT_THRESH || corners4[3].y < VERT_THRESH){
+            dirt.draw(0, -100);
+            dirt.draw(0, 0);
+            dirt.draw(0, 200);
+            dirt.draw(0, 600);
+            dirt.draw(0, 800);
+            dirt.draw(0, 1200);
+            dirt.draw(0, 1400);
+            
             ofSetColor(41, 12, 0);
             artk->applyProjectionMatrix();
             artk->applyModelMatrix(markerIndexFour);
@@ -337,7 +350,7 @@ void senses::draw(){
             ofFill();
             ofEllipse(0, 0, disappear, disappear);
             
-            disappear > 0 && ofGetElapsedTimeMillis() % 300 == 0 && --disappear;
+            disappear > 0 && ofGetElapsedTimeMillis() % 200 == 0 && --disappear;
             
         }
         
