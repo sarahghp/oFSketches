@@ -8,7 +8,7 @@
 
 #include "senses.h"
 
-#define VERT_THRESH 320
+#define VERT_THRESH 340
 //#define DEBUG
 
 //--------------------------------------------------------------
