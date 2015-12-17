@@ -19,10 +19,11 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        int numCircles;
-        bool shift;
-    
         ofPoint center;
         ofPath weeArc;
-		
+    
+        // dynamic options
+        int numCircles;
+        bool shift;
+        int blue;
 };
