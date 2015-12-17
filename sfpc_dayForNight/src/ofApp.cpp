@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     center.x = ofGetWidth()/2;
-    center.y = ofGetHeight()/2;
+    center.y = ofGetHeight()/2 + ofGetHeight() * .09;
     
     weeArc.setCircleResolution(1000);
     weeArc.setFilled(false);
@@ -20,16 +20,14 @@ void ofApp::update(){
 void ofApp::draw(){
     
     for (int i = 1; i < 31; i++){
-        int rad = i * (8 - .04 * i);
+        float rad = i * (10 - .04 * i);
+        float maxRad = 30;
+        float diff = (center.y + maxRad * sin(ofDegToRad(90))) - (center.y + (.35 * maxRad) * sin(ofDegToRad(90)));
         
         weeArc.moveTo(center.x, center.y - rad);
         weeArc.arc(center, rad, rad, 270, 90);
-        weeArc.lineTo(center.x - (.086 * rad), center.y + .95 * rad);
-        
-        weeArc.arc(center, .95 * rad, .95 * rad, 96, 190);
-        
-        weeArc.lineTo(center.x - 1.18 * rad, center.y - 62);
-        weeArc.arc(center, 1.2 * rad, 1.2 * rad, 190, 265);
+        weeArc.arc(center.x - 30, center.y - diff * 2, rad, rad, 92, 190);
+        weeArc.arc(center.x - 40, center.y - diff * 6,  1.18 * rad, 1.18 * rad, 180, 260);
         
         weeArc.close();
         weeArc.draw();
